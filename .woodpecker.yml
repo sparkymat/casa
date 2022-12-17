@@ -7,9 +7,12 @@ clone:
 pipeline:
   lint:
     image: hub.orion.home/dev-runtime:latest
-    secrets: [gitea_url, gitea_ci_user, gitea_ci_token]
     commands:
-      - golangci-lint run --out-format=checkstyle | gitea-golangci-lint --format=checkstyle --status=golangci-lint
+      - golangci-lint run
+  test:
+    image: hub.orion.home/dev-runtime:latest
+    commands:
+      - go test ./...
   build:
     image: hub.orion.home/docker:dind
     secrets: [hub_password]
