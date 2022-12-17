@@ -20,4 +20,9 @@ type Service struct {
 }
 
 type envConfig struct {
+	DataPath string `env:"DATA_PATH,required"`
+}
+
+func (s *Service) DataPath() string {
+	return s.envConfig.DataPath
 }
