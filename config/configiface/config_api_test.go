@@ -9,6 +9,8 @@ import (
 )
 
 func TestConfig(t *testing.T) {
+	t.Parallel()
+
 	structType := reflect.TypeOf(&config.Service{})
 	interfaceType := reflect.TypeOf((*configiface.ConfigAPI)(nil)).Elem()
 

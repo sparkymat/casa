@@ -1,13 +1,15 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/caarlos0/env/v6"
 )
 
 func New() (*Service, error) {
 	envConfig := envConfig{}
 	if err := env.Parse(&envConfig); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to load config from env. err: %w", err)
 	}
 
 	return &Service{
