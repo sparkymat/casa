@@ -8,10 +8,7 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		panic(err)
-	}
+	_ = godotenv.Load()
 
 	cfg, err := config.New()
 	if err != nil {

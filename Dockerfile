@@ -1,6 +1,6 @@
 FROM hub.orion.home/golang:1.19-alpine AS builder
 
-COPY * /app/
+COPY . /app/
 
 WORKDIR /app
 RUN CGO_ENABLED=0 go build -o casa .
