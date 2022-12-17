@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/sparkymat/casa/config"
-	"github.com/sparkymat/casa/config/configiface"
+	"git.orion.home/oxhead/casa/config"
+	"git.orion.home/oxhead/casa/config/configiface"
 )
 
 func TestConfig(t *testing.T) {

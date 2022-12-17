@@ -1,14 +1,14 @@
-module github.com/sparkymat/casa
+module git.orion.home/oxhead/casa
 
 go 1.19
 
 require (
+	github.com/caarlos0/env/v6 v6.10.1
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.9.1
 )
 
 require (
-	github.com/caarlos0/env/v6 v6.10.1 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect

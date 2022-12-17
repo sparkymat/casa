@@ -1,10 +1,10 @@
 package main
 
 import (
+	"git.orion.home/oxhead/casa/config"
+	"git.orion.home/oxhead/casa/route"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
-	"github.com/sparkymat/casa/config"
-	"github.com/sparkymat/casa/route"
 )
 
 func main() {
