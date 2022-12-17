@@ -8,7 +8,7 @@ pipeline:
   lint:
     image: hub.orion.home/dev-runtime:latest
     commands:
-      - golangci-lint run .
+      - golangci-lint run ./...
   build:
     image: hub.orion.home/docker:dind
     secrets: [hub_password]
