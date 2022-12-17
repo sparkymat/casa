@@ -1,3 +1,9 @@
+clone:
+  git:
+    image: hub.orion.home/woodpecker-cloner:1.0.11
+    settings:
+      skip_verify: true
+
 pipeline:
   build:
     image: hub.orion.home/docker:dind
