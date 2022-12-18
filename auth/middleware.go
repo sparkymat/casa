@@ -18,6 +18,7 @@ func Middleware(db dbiface.DatabaseAPI) echo.MiddlewareFunc {
 			name := c.Request().Header.Get("Remote-Name")
 
 			if email == "" || name == "" {
+				//nolint:wrapcheck
 				return c.String(http.StatusUnauthorized, "unathorized")
 			}
 
@@ -25,7 +26,9 @@ func Middleware(db dbiface.DatabaseAPI) echo.MiddlewareFunc {
 			if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
 				user, err = db.CreateUser(c.Request().Context(), email, name)
 			}
+
 			if err != nil {
+				//nolint:wrapcheck
 				return c.String(http.StatusUnauthorized, "unathorized")
 			}
 
