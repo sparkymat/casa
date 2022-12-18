@@ -1,5 +1,7 @@
 package main
 
+//go:generate go run github.com/valyala/quicktemplate/qtc -dir=view
+
 import (
 	"git.orion.home/oxhead/casa/config"
 	"git.orion.home/oxhead/casa/database"
