@@ -6,7 +6,7 @@ import (
 	"git.orion.home/oxhead/casa/model"
 )
 
-func (s *Service) GetUser(ctx context.Context, email string) (*model.User, error) {
+func (s *Service) GetUser(_ context.Context, email string) (*model.User, error) {
 	user := model.User{
 		Email: email,
 	}
