@@ -14,8 +14,10 @@ type Config struct {
 
 func New(cfg Config) (*Service, error) {
 	dbPath := path.Join(cfg.DataPath, "store.db")
+
 	gormDB, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
 	if err != nil {
+		//nolint:wrapcheck
 		return nil, err
 	}
 
@@ -27,6 +29,7 @@ type Service struct {
 }
 
 func (s *Service) AutoMigrate() error {
+	//nolint:wrapcheck
 	return s.db.AutoMigrate(
 		&model.User{},
 	)

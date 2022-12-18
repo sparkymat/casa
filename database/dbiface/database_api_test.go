@@ -9,6 +9,8 @@ import (
 )
 
 func TestConfig(t *testing.T) {
+	t.Parallel()
+
 	structType := reflect.TypeOf(&database.Service{})
 	interfaceType := reflect.TypeOf((*dbiface.DatabaseAPI)(nil)).Elem()
 
