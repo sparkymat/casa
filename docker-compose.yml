@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    environment:
+      DATA_PATH: /tmp/
+  proxy:
+    image: caddy:2
+    ports:
+      - 3000:80
+    links:
+      - app
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile

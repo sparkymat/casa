@@ -27,6 +27,6 @@ func main() {
 	}
 
 	e := echo.New()
-	route.Setup(e, cfg)
+	route.Setup(e, cfg, db)
 	e.Logger.Fatal(e.Start(":8080"))
 }
