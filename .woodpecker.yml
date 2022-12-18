@@ -9,18 +9,22 @@ pipeline:
     image: hub.orion.home/dev-runtime:latest
     commands:
       - golangci-lint run
+
   test:
     image: hub.orion.home/dev-runtime:latest
     commands:
       - go test ./...
+
   build:
+    when:
+      - event: tag
     image: hub.orion.home/docker:dind
     secrets: [hub_password]
     commands:
       - echo $HUB_PASSWORD | docker login --username oxhead --password-stdin hub.orion.home
-      - docker build . -t hub.orion.home/casa:$CI_COMMIT_SHA
-      - docker push hub.orion.home/casa:$CI_COMMIT_SHA
-      - docker tag hub.orion.home/casa:$CI_COMMIT_SHA hub.orion.home/casa:latest
+      - docker build . -t hub.orion.home/casa:$CI_COMMIT_REF
+      - docker push hub.orion.home/casa:$CI_COMMIT_REF
+      - docker tag hub.orion.home/casa:$CI_COMMIT_REF hub.orion.home/casa:latest
       - docker push hub.orion.home/casa:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
