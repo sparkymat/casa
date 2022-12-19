@@ -9,6 +9,6 @@ RUN CGO_ENABLED=0 go build -o casa .
 FROM hub.orion.home/alpine:3
 
 COPY --from=builder /app/casa /bin/casa
-COPY public /app/
+COPY public /app/public
 
 CMD ["/bin/casa"]
