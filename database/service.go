@@ -32,5 +32,6 @@ func (s *Service) AutoMigrate() error {
 	//nolint:wrapcheck
 	return s.db.AutoMigrate(
 		&model.User{},
+		&model.CatalogItem{},
 	)
 }
