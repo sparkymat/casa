@@ -8,9 +8,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Home(cfg configiface.ConfigAPI) echo.HandlerFunc {
+func Apps(cfg configiface.ConfigAPI) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		pageHTML := view.Home()
+		pageHTML := view.Apps()
 		htmlString := view.Layout(cfg.Title(), pageHTML)
 
 		//nolint:wrapcheck

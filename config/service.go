@@ -22,9 +22,14 @@ type Service struct {
 }
 
 type envConfig struct {
+	Title    string `env:"TITLE" envDefault:"casa"`
 	DataPath string `env:"DATA_PATH,required"`
 }
 
 func (s *Service) DataPath() string {
 	return s.envConfig.DataPath
+}
+
+func (s *Service) Title() string {
+	return s.envConfig.Title
 }

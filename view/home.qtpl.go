@@ -21,7 +21,7 @@ var (
 func StreamHome(qw422016 *qt422016.Writer) {
 //line view/home.qtpl:1
 	qw422016.N().S(`
-  <h3>Hello, world</h3>
+  <h3>home</h3>
 `)
 //line view/home.qtpl:3
 }

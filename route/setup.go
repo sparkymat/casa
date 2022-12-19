@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func Setup(e *echo.Echo, _ configiface.ConfigAPI, db dbiface.DatabaseAPI) {
+func Setup(e *echo.Echo, cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) {
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
 	}))
@@ -19,5 +19,6 @@ func Setup(e *echo.Echo, _ configiface.ConfigAPI, db dbiface.DatabaseAPI) {
 	e.Static("/css", "public/css")
 	e.Static("/js", "public/js")
 
-	e.GET("/", handler.Home())
+	e.GET("/", handler.Home(cfg))
+	e.GET("/apps", handler.Apps(cfg))
 }
