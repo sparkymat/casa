@@ -20,3 +20,13 @@ func (s *Service) CreateCatalogItem(_ context.Context, title string, description
 	return &item, nil
 
 }
+
+func (s *Service) ListCatalogItems(_ context.Context) ([]model.CatalogItem, error) {
+	catalogItems := []model.CatalogItem{}
+
+	if result := s.db.Order("title desc").Find(&catalogItems); result.Error != nil {
+		return nil, result.Error
+	}
+
+	return catalogItems, nil
+}

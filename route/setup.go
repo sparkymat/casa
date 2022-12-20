@@ -26,7 +26,7 @@ func Setup(e *echo.Echo, cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) {
 	e.Static("/uploads", path.Join(cfg.DataPath(), "uploads"))
 
 	e.GET("/", handler.Home(cfg))
-	e.GET("/apps", handler.Apps(cfg))
+	e.GET("/apps", handler.Apps(cfg, db))
 	e.GET("/apps/new", handler.NewApp(cfg))
 	e.POST("/apps", handler.CreateApp(cfg, db))
 }

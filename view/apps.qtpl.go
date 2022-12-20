@@ -5,53 +5,73 @@
 package view
 
 //line view/apps.qtpl:1
+import "git.orion.home/oxhead/casa/model"
+
+//line view/apps.qtpl:3
 import (
 	qtio422016 "io"
 
 	qt422016 "github.com/valyala/quicktemplate"
 )
 
-//line view/apps.qtpl:1
+//line view/apps.qtpl:3
 var (
 	_ = qtio422016.Copy
 	_ = qt422016.AcquireByteBuffer
 )
 
-//line view/apps.qtpl:1
-func StreamApps(qw422016 *qt422016.Writer) {
-//line view/apps.qtpl:1
+//line view/apps.qtpl:3
+func StreamApps(qw422016 *qt422016.Writer, items []model.CatalogItem) {
+//line view/apps.qtpl:3
 	qw422016.N().S(`
   <div class="uk-flex uk-flex-column">
     <div class="uk-flex uk-flex-row-reverse uk-padding-small">
       <a class="uk-button uk-button-primary" href="/apps/new">New app</a>
     </div>
+    <ul>
+      `)
+//line view/apps.qtpl:9
+	for _, item := range items {
+//line view/apps.qtpl:9
+		qw422016.N().S(`
+        <li>`)
+//line view/apps.qtpl:10
+		qw422016.E().S(item.Title)
+//line view/apps.qtpl:10
+		qw422016.N().S(`</li>
+      `)
+//line view/apps.qtpl:11
+	}
+//line view/apps.qtpl:11
+	qw422016.N().S(`
+    </ul>
   </div>
 `)
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
 }
 
-//line view/apps.qtpl:7
-func WriteApps(qq422016 qtio422016.Writer) {
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
+func WriteApps(qq422016 qtio422016.Writer, items []model.CatalogItem) {
+//line view/apps.qtpl:14
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line view/apps.qtpl:7
-	StreamApps(qw422016)
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
+	StreamApps(qw422016, items)
+//line view/apps.qtpl:14
 	qt422016.ReleaseWriter(qw422016)
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
 }
 
-//line view/apps.qtpl:7
-func Apps() string {
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
+func Apps(items []model.CatalogItem) string {
+//line view/apps.qtpl:14
 	qb422016 := qt422016.AcquireByteBuffer()
-//line view/apps.qtpl:7
-	WriteApps(qb422016)
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
+	WriteApps(qb422016, items)
+//line view/apps.qtpl:14
 	qs422016 := string(qb422016.B)
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
 	qt422016.ReleaseByteBuffer(qb422016)
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
 	return qs422016
-//line view/apps.qtpl:7
+//line view/apps.qtpl:14
 }
