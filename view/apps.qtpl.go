@@ -37,14 +37,14 @@ func StreamApps(qw422016 *qt422016.Writer, items []model.CatalogItem) {
         <div class="uk-padding">
           <a class="uk-link-reset" href="`)
 //line view/apps.qtpl:11
-		qw422016.N().S(item.Url)
+		qw422016.N().S(item.URL)
 //line view/apps.qtpl:11
 		qw422016.N().S(`" target="_blank">
             <div class="uk-card uk-card-default">
               <div class="uk-card-media-top">
                   <img src="`)
 //line view/apps.qtpl:14
-		qw422016.E().S(item.ImageUrl)
+		qw422016.E().S(item.ImageURL)
 //line view/apps.qtpl:14
 		qw422016.N().S(`"  height="180" alt="">
               </div>

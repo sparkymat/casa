@@ -6,12 +6,12 @@ import (
 	"git.orion.home/oxhead/casa/model"
 )
 
-func (s *Service) CreateCatalogItem(_ context.Context, title string, url string, description string, imageUrl string) (*model.CatalogItem, error) {
+func (s *Service) CreateCatalogItem(_ context.Context, title string, url string, description string, imageURL string) (*model.CatalogItem, error) {
 	item := model.CatalogItem{
 		Title:       title,
-		Url:         url,
+		URL:         url,
 		Description: description,
-		ImageUrl:    imageUrl,
+		ImageURL:    imageURL,
 	}
 
 	if result := s.db.Create(&item); result.Error != nil {
@@ -19,7 +19,6 @@ func (s *Service) CreateCatalogItem(_ context.Context, title string, url string,
 	}
 
 	return &item, nil
-
 }
 
 func (s *Service) ListCatalogItems(_ context.Context) ([]model.CatalogItem, error) {

@@ -21,18 +21,23 @@ func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFu
 		url := c.FormValue("url")
 
 		if title == "" || url == "" {
+			//nolint:wrapcheck
 			return c.String(http.StatusUnprocessableEntity, "title and url required")
 		}
 
 		imageFile, err := c.FormFile("image_file")
 		if err != nil {
+			//nolint:wrapcheck
 			return c.String(http.StatusInternalServerError, "failed to handle file")
 		}
 
 		fileUID := ulid.Make().String()
 		fileExt := filepath.Ext(imageFile.Filename)
+
 		destinationFolderPath := path.Join(cfg.DataPath(), "uploads")
-		if err := os.MkdirAll(destinationFolderPath, os.FileMode(0750)); err != nil {
+		//nolint:gomnd
+		if err := os.MkdirAll(destinationFolderPath, os.FileMode(0o750)); err != nil {
+			//nolint:wrapcheck
 			return c.String(http.StatusInternalServerError, "failed to handle file")
 		}
 
@@ -40,6 +45,7 @@ func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFu
 
 		src, err := imageFile.Open()
 		if err != nil {
+			//nolint:wrapcheck
 			return c.String(http.StatusInternalServerError, "failed to handle file")
 		}
 		defer src.Close()
@@ -47,17 +53,20 @@ func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFu
 		// Destination
 		dst, err := os.Create(destinationFilePath)
 		if err != nil {
+			//nolint:wrapcheck
 			return c.String(http.StatusInternalServerError, "failed to create destination file")
 		}
 		defer dst.Close()
 
 		// Copy
 		if _, err = io.Copy(dst, src); err != nil {
+			//nolint:wrapcheck
 			return c.String(http.StatusInternalServerError, "failed to copy file")
 		}
 
 		_, err = db.CreateCatalogItem(c.Request().Context(), title, url, description, fmt.Sprintf("/uploads/%v%v", fileUID, fileExt))
 		if err != nil {
+			//nolint:wrapcheck
 			return c.String(http.StatusInternalServerError, "failed to create entry")
 		}
 

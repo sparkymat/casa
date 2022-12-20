@@ -13,6 +13,7 @@ func Apps(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		items, err := db.ListCatalogItems(c.Request().Context())
 		if err != nil {
+			//nolint:wrapcheck
 			return c.String(http.StatusInternalServerError, "internal server error")
 		}
 

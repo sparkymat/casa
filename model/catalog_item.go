@@ -6,6 +6,6 @@ type CatalogItem struct {
 	gorm.Model
 	Title       string
 	Description string
-	ImageUrl    string
-	Url         string
+	ImageURL    string
+	URL         string
 }
