@@ -28,50 +28,69 @@ func StreamApps(qw422016 *qt422016.Writer, items []model.CatalogItem) {
     <div class="uk-flex uk-flex-row-reverse uk-padding-small">
       <a class="uk-button uk-button-primary" href="/apps/new">New app</a>
     </div>
-    <ul>
+    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-grid-collapse">
       `)
 //line view/apps.qtpl:9
 	for _, item := range items {
 //line view/apps.qtpl:9
 		qw422016.N().S(`
-        <li>`)
-//line view/apps.qtpl:10
+        <div class="uk-padding">
+          <a class="uk-link-reset" href="`)
+//line view/apps.qtpl:11
+		qw422016.N().S(item.Url)
+//line view/apps.qtpl:11
+		qw422016.N().S(`" target="_blank">
+            <div class="uk-card uk-card-default">
+              <div class="uk-card-media-top">
+                  <img src="`)
+//line view/apps.qtpl:14
+		qw422016.E().S(item.ImageUrl)
+//line view/apps.qtpl:14
+		qw422016.N().S(`"  height="180" alt="">
+              </div>
+              <div class="uk-card-body uk-padding-small">
+                <h3 class="uk-card-title uk-text-center">`)
+//line view/apps.qtpl:17
 		qw422016.E().S(item.Title)
-//line view/apps.qtpl:10
-		qw422016.N().S(`</li>
+//line view/apps.qtpl:17
+		qw422016.N().S(`</h3>
+              </div>
+            </div>
+          </a>
+        </div>
       `)
-//line view/apps.qtpl:11
+//line view/apps.qtpl:22
 	}
-//line view/apps.qtpl:11
+//line view/apps.qtpl:22
 	qw422016.N().S(`
-    </ul>
+    </div>
   </div>
 `)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 }
 
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 func WriteApps(qq422016 qtio422016.Writer, items []model.CatalogItem) {
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 	StreamApps(qw422016, items)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 	qt422016.ReleaseWriter(qw422016)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 }
 
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 func Apps(items []model.CatalogItem) string {
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 	qb422016 := qt422016.AcquireByteBuffer()
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 	WriteApps(qb422016, items)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 	qs422016 := string(qb422016.B)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 	qt422016.ReleaseByteBuffer(qb422016)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 	return qs422016
-//line view/apps.qtpl:14
+//line view/apps.qtpl:25
 }

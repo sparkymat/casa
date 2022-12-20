@@ -6,9 +6,10 @@ import (
 	"git.orion.home/oxhead/casa/model"
 )
 
-func (s *Service) CreateCatalogItem(_ context.Context, title string, description string, imageUrl string) (*model.CatalogItem, error) {
+func (s *Service) CreateCatalogItem(_ context.Context, title string, url string, description string, imageUrl string) (*model.CatalogItem, error) {
 	item := model.CatalogItem{
 		Title:       title,
+		Url:         url,
 		Description: description,
 		ImageUrl:    imageUrl,
 	}

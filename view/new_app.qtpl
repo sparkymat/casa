@@ -7,6 +7,9 @@
           <input type="text" class="uk-card-title uk-input" placeholder="Name of the app" name="title" autofocus>
         </div>
         <div class="uk-margin">
+          <input type="text" class="uk-input" placeholder="Link to the app" name="url">
+        </div>
+        <div class="uk-margin">
           <textarea name="description" class="uk-input" placeholder="Describe what the app does"></textarea>
         </div>
         <div class="uk-margin" uk-margin>

@@ -33,6 +33,9 @@ func StreamNewApp(qw422016 *qt422016.Writer, csrfToken string) {
           <input type="text" class="uk-card-title uk-input" placeholder="Name of the app" name="title" autofocus>
         </div>
         <div class="uk-margin">
+          <input type="text" class="uk-input" placeholder="Link to the app" name="url">
+        </div>
+        <div class="uk-margin">
           <textarea name="description" class="uk-input" placeholder="Describe what the app does"></textarea>
         </div>
         <div class="uk-margin" uk-margin>
@@ -46,31 +49,31 @@ func StreamNewApp(qw422016 *qt422016.Writer, csrfToken string) {
     </div>
   </div>
 `)
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 }
 
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 func WriteNewApp(qq422016 qtio422016.Writer, csrfToken string) {
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 	StreamNewApp(qw422016, csrfToken)
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 	qt422016.ReleaseWriter(qw422016)
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 }
 
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 func NewApp(csrfToken string) string {
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 	qb422016 := qt422016.AcquireByteBuffer()
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 	WriteNewApp(qb422016, csrfToken)
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 	qs422016 := string(qb422016.B)
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 	qt422016.ReleaseByteBuffer(qb422016)
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 	return qs422016
-//line view/new_app.qtpl:22
+//line view/new_app.qtpl:25
 }

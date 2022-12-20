@@ -23,6 +23,7 @@ func Setup(e *echo.Echo, cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) {
 
 	e.Static("/css", "public/css")
 	e.Static("/js", "public/js")
+	e.Static("/fonts", "public/fonts")
 	e.Static("/uploads", path.Join(cfg.DataPath(), "uploads"))
 
 	e.GET("/", handler.Home(cfg))

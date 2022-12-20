@@ -7,4 +7,5 @@ type CatalogItem struct {
 	Title       string
 	Description string
 	ImageUrl    string
+	Url         string
 }

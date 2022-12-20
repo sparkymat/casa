@@ -18,6 +18,12 @@ func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFu
 	return func(c echo.Context) error {
 		title := c.FormValue("title")
 		description := c.FormValue("description")
+		url := c.FormValue("url")
+
+		if title == "" || url == "" {
+			return c.String(http.StatusUnprocessableEntity, "title and url required")
+		}
+
 		imageFile, err := c.FormFile("image_file")
 		if err != nil {
 			return c.String(http.StatusInternalServerError, "failed to handle file")
@@ -50,7 +56,7 @@ func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFu
 			return c.String(http.StatusInternalServerError, "failed to copy file")
 		}
 
-		_, err = db.CreateCatalogItem(c.Request().Context(), title, description, fmt.Sprintf("/uploads/%v%v", fileUID, fileExt))
+		_, err = db.CreateCatalogItem(c.Request().Context(), title, url, description, fmt.Sprintf("/uploads/%v%v", fileUID, fileExt))
 		if err != nil {
 			return c.String(http.StatusInternalServerError, "failed to create entry")
 		}
