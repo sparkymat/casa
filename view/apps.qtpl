@@ -1,13 +1,14 @@
+{% import "fmt" %}
 {% import "git.orion.home/oxhead/casa/model" %}
 
-{% func Apps(items []model.CatalogItem) %}
+{% func Apps(csrfToken string, items []model.CatalogItem) %}
   <div class="uk-flex uk-flex-column">
     <div class="uk-flex uk-flex-row-reverse uk-padding-small">
       <a class="uk-button uk-button-primary" href="/apps/new">New app</a>
     </div>
     <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-flex uk-flex-row">
       {% for _, item := range items %}
-        <div class="uk-padding">
+        <div class="uk-padding uk-flex uk-flex-column">
           <a class="uk-link-reset" href="{%s= item.URL %}" target="_blank">
             <div class="uk-card uk-card-default">
               <div class="uk-card-media-top">
@@ -18,6 +19,11 @@
               </div>
             </div>
           </a>
+          <button type="button" class="uk-button uk-button-primary uk-margin-small-top">Add to home</button>
+          <form action="/apps/{%s= fmt.Sprintf("%d", item.ID) %}/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this?')" class="uk-flex uk-flex-row uk-margin-small-top"> 
+            <input type="hidden" name="csrf" value="{%s csrfToken %}">
+            <input type="submit" class="uk-button uk-button-danger uk-width-1-1" value="Delete">
+          </form>
         </div>
       {% endfor %}
     </div>

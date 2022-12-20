@@ -11,13 +11,19 @@ import (
 
 func Apps(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		csrfToken := getCSRFToken(c)
+		if csrfToken == "" {
+			//nolint:wrapcheck
+			return c.String(http.StatusInternalServerError, "csrf error")
+		}
+
 		items, err := db.ListCatalogItems(c.Request().Context())
 		if err != nil {
 			//nolint:wrapcheck
 			return c.String(http.StatusInternalServerError, "internal server error")
 		}
 
-		pageHTML := view.Apps(items)
+		pageHTML := view.Apps(csrfToken, items)
 		htmlString := view.Layout(cfg.Title(), pageHTML)
 
 		//nolint:wrapcheck

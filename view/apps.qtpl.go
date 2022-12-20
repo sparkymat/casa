@@ -5,24 +5,27 @@
 package view
 
 //line view/apps.qtpl:1
+import "fmt"
+
+//line view/apps.qtpl:2
 import "git.orion.home/oxhead/casa/model"
 
-//line view/apps.qtpl:3
+//line view/apps.qtpl:4
 import (
 	qtio422016 "io"
 
 	qt422016 "github.com/valyala/quicktemplate"
 )
 
-//line view/apps.qtpl:3
+//line view/apps.qtpl:4
 var (
 	_ = qtio422016.Copy
 	_ = qt422016.AcquireByteBuffer
 )
 
-//line view/apps.qtpl:3
-func StreamApps(qw422016 *qt422016.Writer, items []model.CatalogItem) {
-//line view/apps.qtpl:3
+//line view/apps.qtpl:4
+func StreamApps(qw422016 *qt422016.Writer, csrfToken string, items []model.CatalogItem) {
+//line view/apps.qtpl:4
 	qw422016.N().S(`
   <div class="uk-flex uk-flex-column">
     <div class="uk-flex uk-flex-row-reverse uk-padding-small">
@@ -30,67 +33,80 @@ func StreamApps(qw422016 *qt422016.Writer, items []model.CatalogItem) {
     </div>
     <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-flex uk-flex-row">
       `)
-//line view/apps.qtpl:9
+//line view/apps.qtpl:10
 	for _, item := range items {
-//line view/apps.qtpl:9
+//line view/apps.qtpl:10
 		qw422016.N().S(`
-        <div class="uk-padding">
+        <div class="uk-padding uk-flex uk-flex-column">
           <a class="uk-link-reset" href="`)
-//line view/apps.qtpl:11
+//line view/apps.qtpl:12
 		qw422016.N().S(item.URL)
-//line view/apps.qtpl:11
+//line view/apps.qtpl:12
 		qw422016.N().S(`" target="_blank">
             <div class="uk-card uk-card-default">
               <div class="uk-card-media-top">
                   <img src="`)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:15
 		qw422016.E().S(item.ImageURL)
-//line view/apps.qtpl:14
+//line view/apps.qtpl:15
 		qw422016.N().S(`"  height="180" alt="">
               </div>
               <div class="uk-card-body uk-padding-small">
                 <h3 class="uk-card-title uk-text-center">`)
-//line view/apps.qtpl:17
+//line view/apps.qtpl:18
 		qw422016.E().S(item.Title)
-//line view/apps.qtpl:17
+//line view/apps.qtpl:18
 		qw422016.N().S(`</h3>
               </div>
             </div>
           </a>
+          <button type="button" class="uk-button uk-button-primary uk-margin-small-top">Add to home</button>
+          <form action="/apps/`)
+//line view/apps.qtpl:23
+		qw422016.N().S(fmt.Sprintf("%d", item.ID))
+//line view/apps.qtpl:23
+		qw422016.N().S(`/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this?')" class="uk-flex uk-flex-row uk-margin-small-top"> 
+            <input type="hidden" name="csrf" value="`)
+//line view/apps.qtpl:24
+		qw422016.E().S(csrfToken)
+//line view/apps.qtpl:24
+		qw422016.N().S(`">
+            <input type="submit" class="uk-button uk-button-danger uk-width-1-1" value="Delete">
+          </form>
         </div>
       `)
-//line view/apps.qtpl:22
+//line view/apps.qtpl:28
 	}
-//line view/apps.qtpl:22
+//line view/apps.qtpl:28
 	qw422016.N().S(`
     </div>
   </div>
 `)
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
 }
 
-//line view/apps.qtpl:25
-func WriteApps(qq422016 qtio422016.Writer, items []model.CatalogItem) {
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
+func WriteApps(qq422016 qtio422016.Writer, csrfToken string, items []model.CatalogItem) {
+//line view/apps.qtpl:31
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line view/apps.qtpl:25
-	StreamApps(qw422016, items)
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
+	StreamApps(qw422016, csrfToken, items)
+//line view/apps.qtpl:31
 	qt422016.ReleaseWriter(qw422016)
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
 }
 
-//line view/apps.qtpl:25
-func Apps(items []model.CatalogItem) string {
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
+func Apps(csrfToken string, items []model.CatalogItem) string {
+//line view/apps.qtpl:31
 	qb422016 := qt422016.AcquireByteBuffer()
-//line view/apps.qtpl:25
-	WriteApps(qb422016, items)
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
+	WriteApps(qb422016, csrfToken, items)
+//line view/apps.qtpl:31
 	qs422016 := string(qb422016.B)
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
 	qt422016.ReleaseByteBuffer(qb422016)
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
 	return qs422016
-//line view/apps.qtpl:25
+//line view/apps.qtpl:31
 }
