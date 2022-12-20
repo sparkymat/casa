@@ -4,7 +4,7 @@ COPY . /app/
 
 WORKDIR /app
 RUN go generate ./...
-RUN CGO_ENABLED=0 go build -o casa .
+RUN make casa
 
 FROM hub.orion.home/alpine:3
 
