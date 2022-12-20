@@ -28,7 +28,7 @@ func StreamApps(qw422016 *qt422016.Writer, items []model.CatalogItem) {
     <div class="uk-flex uk-flex-row-reverse uk-padding-small">
       <a class="uk-button uk-button-primary" href="/apps/new">New app</a>
     </div>
-    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-grid-collapse">
+    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-flex uk-flex-row">
       `)
 //line view/apps.qtpl:9
 	for _, item := range items {
