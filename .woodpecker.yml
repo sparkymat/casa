@@ -16,6 +16,11 @@ pipeline:
       - go test ./...
 
   build:
+    image: hub.orion.home/dev-runtime:latest
+    commands:
+      - make
+
+  docker:
     when:
       - event: tag
     image: hub.orion.home/docker:dind
