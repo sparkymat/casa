@@ -8,7 +8,7 @@ package view
 import "fmt"
 
 //line view/apps.qtpl:2
-import "git.orion.home/oxhead/casa/model"
+import "git.orion.home/oxhead/casa/presenter"
 
 //line view/apps.qtpl:4
 import (
@@ -24,7 +24,7 @@ var (
 )
 
 //line view/apps.qtpl:4
-func StreamApps(qw422016 *qt422016.Writer, csrfToken string, items []model.CatalogItem) {
+func StreamApps(qw422016 *qt422016.Writer, csrfToken string, items []presenter.AppItem) {
 //line view/apps.qtpl:4
 	qw422016.N().S(`
   <div class="uk-flex uk-flex-column">
@@ -60,53 +60,95 @@ func StreamApps(qw422016 *qt422016.Writer, csrfToken string, items []model.Catal
               </div>
             </div>
           </a>
-          <button type="button" class="uk-button uk-button-primary uk-margin-small-top">Add to home</button>
+          `)
+//line view/apps.qtpl:22
+		if item.HomeItemID != nil {
+//line view/apps.qtpl:22
+			qw422016.N().S(`
+            <form action="/apps/`)
+//line view/apps.qtpl:23
+			qw422016.N().S(fmt.Sprintf("%d", item.ID))
+//line view/apps.qtpl:23
+			qw422016.N().S(`/home_items/`)
+//line view/apps.qtpl:23
+			qw422016.N().S(fmt.Sprintf("%d", *item.HomeItemID))
+//line view/apps.qtpl:23
+			qw422016.N().S(`/delete" method="POST" onsubmit="return confirm('Are you sure you want to remove this from your home page?')" class="uk-flex uk-flex-row uk-margin-small-top"> 
+              <input type="hidden" name="csrf" value="`)
+//line view/apps.qtpl:24
+			qw422016.E().S(csrfToken)
+//line view/apps.qtpl:24
+			qw422016.N().S(`">
+              <input type="submit" class="uk-button uk-button-default uk-width-1-1" value="Remove from home">
+            </form>
+          `)
+//line view/apps.qtpl:27
+		} else {
+//line view/apps.qtpl:27
+			qw422016.N().S(`
+            <form action="/apps/`)
+//line view/apps.qtpl:28
+			qw422016.N().S(fmt.Sprintf("%d", item.ID))
+//line view/apps.qtpl:28
+			qw422016.N().S(`/home_items" method="POST" class="uk-flex uk-flex-row uk-margin-small-top"> 
+              <input type="hidden" name="csrf" value="`)
+//line view/apps.qtpl:29
+			qw422016.E().S(csrfToken)
+//line view/apps.qtpl:29
+			qw422016.N().S(`">
+              <input type="submit" class="uk-button uk-button-primary uk-width-1-1" value="Add to  home">
+            </form>
+          `)
+//line view/apps.qtpl:32
+		}
+//line view/apps.qtpl:32
+		qw422016.N().S(`
           <form action="/apps/`)
-//line view/apps.qtpl:23
+//line view/apps.qtpl:33
 		qw422016.N().S(fmt.Sprintf("%d", item.ID))
-//line view/apps.qtpl:23
+//line view/apps.qtpl:33
 		qw422016.N().S(`/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this?')" class="uk-flex uk-flex-row uk-margin-small-top"> 
             <input type="hidden" name="csrf" value="`)
-//line view/apps.qtpl:24
+//line view/apps.qtpl:34
 		qw422016.E().S(csrfToken)
-//line view/apps.qtpl:24
+//line view/apps.qtpl:34
 		qw422016.N().S(`">
             <input type="submit" class="uk-button uk-button-danger uk-width-1-1" value="Delete">
           </form>
         </div>
       `)
-//line view/apps.qtpl:28
+//line view/apps.qtpl:38
 	}
-//line view/apps.qtpl:28
+//line view/apps.qtpl:38
 	qw422016.N().S(`
     </div>
   </div>
 `)
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 }
 
-//line view/apps.qtpl:31
-func WriteApps(qq422016 qtio422016.Writer, csrfToken string, items []model.CatalogItem) {
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
+func WriteApps(qq422016 qtio422016.Writer, csrfToken string, items []presenter.AppItem) {
+//line view/apps.qtpl:41
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 	StreamApps(qw422016, csrfToken, items)
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 	qt422016.ReleaseWriter(qw422016)
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 }
 
-//line view/apps.qtpl:31
-func Apps(csrfToken string, items []model.CatalogItem) string {
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
+func Apps(csrfToken string, items []presenter.AppItem) string {
+//line view/apps.qtpl:41
 	qb422016 := qt422016.AcquireByteBuffer()
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 	WriteApps(qb422016, csrfToken, items)
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 	qs422016 := string(qb422016.B)
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 	qt422016.ReleaseByteBuffer(qb422016)
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 	return qs422016
-//line view/apps.qtpl:31
+//line view/apps.qtpl:41
 }
