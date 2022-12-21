@@ -5,49 +5,84 @@
 package view
 
 //line view/home.qtpl:1
+import "git.orion.home/oxhead/casa/model"
+
+//line view/home.qtpl:3
 import (
 	qtio422016 "io"
 
 	qt422016 "github.com/valyala/quicktemplate"
 )
 
-//line view/home.qtpl:1
+//line view/home.qtpl:3
 var (
 	_ = qtio422016.Copy
 	_ = qt422016.AcquireByteBuffer
 )
 
-//line view/home.qtpl:1
-func StreamHome(qw422016 *qt422016.Writer) {
-//line view/home.qtpl:1
+//line view/home.qtpl:3
+func StreamHome(qw422016 *qt422016.Writer, items []model.HomeItem) {
+//line view/home.qtpl:3
 	qw422016.N().S(`
-  <h3>home</h3>
+  <div class="uk-flex uk-flex-column">
+    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-flex uk-flex-row">
+      `)
+//line view/home.qtpl:6
+	for _, item := range items {
+//line view/home.qtpl:6
+		qw422016.N().S(`
+        <div class="uk-padding uk-flex uk-flex-column">
+          <a class="uk-link-reset" href="`)
+//line view/home.qtpl:8
+		qw422016.N().S(item.CatalogItem.URL)
+//line view/home.qtpl:8
+		qw422016.N().S(`" target="_blank">
+            <div class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="`)
+//line view/home.qtpl:9
+		qw422016.E().S(item.CatalogItem.ImageURL)
+//line view/home.qtpl:9
+		qw422016.N().S(`" uk-img>
+            </div>
+            <h3 class="uk-margin-small uk-text-center">`)
+//line view/home.qtpl:11
+		qw422016.E().S(item.CatalogItem.Title)
+//line view/home.qtpl:11
+		qw422016.N().S(`</h3>
+          </a>
+        </div>
+      `)
+//line view/home.qtpl:14
+	}
+//line view/home.qtpl:14
+	qw422016.N().S(`
+    </div>
+  </div>
 `)
-//line view/home.qtpl:3
+//line view/home.qtpl:17
 }
 
-//line view/home.qtpl:3
-func WriteHome(qq422016 qtio422016.Writer) {
-//line view/home.qtpl:3
+//line view/home.qtpl:17
+func WriteHome(qq422016 qtio422016.Writer, items []model.HomeItem) {
+//line view/home.qtpl:17
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line view/home.qtpl:3
-	StreamHome(qw422016)
-//line view/home.qtpl:3
+//line view/home.qtpl:17
+	StreamHome(qw422016, items)
+//line view/home.qtpl:17
 	qt422016.ReleaseWriter(qw422016)
-//line view/home.qtpl:3
+//line view/home.qtpl:17
 }
 
-//line view/home.qtpl:3
-func Home() string {
-//line view/home.qtpl:3
+//line view/home.qtpl:17
+func Home(items []model.HomeItem) string {
+//line view/home.qtpl:17
 	qb422016 := qt422016.AcquireByteBuffer()
-//line view/home.qtpl:3
-	WriteHome(qb422016)
-//line view/home.qtpl:3
+//line view/home.qtpl:17
+	WriteHome(qb422016, items)
+//line view/home.qtpl:17
 	qs422016 := string(qb422016.B)
-//line view/home.qtpl:3
+//line view/home.qtpl:17
 	qt422016.ReleaseByteBuffer(qb422016)
-//line view/home.qtpl:3
+//line view/home.qtpl:17
 	return qs422016
-//line view/home.qtpl:3
+//line view/home.qtpl:17
 }

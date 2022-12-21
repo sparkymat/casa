@@ -33,5 +33,6 @@ func (s *Service) AutoMigrate() error {
 	return s.db.AutoMigrate(
 		&model.User{},
 		&model.CatalogItem{},
+		&model.HomeItem{},
 	)
 }
