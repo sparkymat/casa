@@ -22,7 +22,7 @@ func (s *Service) CreateCatalogItem(_ context.Context, title string, url string,
 	return &item, nil
 }
 
-func (s *Service) DestroyCatalogItem(ctx context.Context, id uint) error {
+func (s *Service) DestroyCatalogItem(_ context.Context, id uint) error {
 	item := model.CatalogItem{
 		Model: gorm.Model{
 			ID: id,
