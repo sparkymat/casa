@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"git.orion.home/oxhead/casa/model"
+	"gorm.io/gorm"
 )
 
 func (s *Service) CreateCatalogItem(_ context.Context, title string, url string, description string, imageURL string) (*model.CatalogItem, error) {
@@ -19,6 +20,18 @@ func (s *Service) CreateCatalogItem(_ context.Context, title string, url string,
 	}
 
 	return &item, nil
+}
+
+func (s *Service) DestroyCatalogItem(ctx context.Context, id uint) error {
+	item := model.CatalogItem{
+		Model: gorm.Model{
+			ID: id,
+		},
+	}
+
+	result := s.db.Delete(&item)
+
+	return result.Error
 }
 
 func (s *Service) ListCatalogItems(_ context.Context) ([]model.CatalogItem, error) {

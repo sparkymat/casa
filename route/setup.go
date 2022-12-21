@@ -30,4 +30,5 @@ func Setup(e *echo.Echo, cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) {
 	e.GET("/apps", handler.Apps(cfg, db))
 	e.GET("/apps/new", handler.NewApp(cfg))
 	e.POST("/apps", handler.CreateApp(cfg, db))
+	e.POST("/apps/:id/delete", handler.DestroyApp(cfg, db))
 }
