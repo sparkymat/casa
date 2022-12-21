@@ -1,4 +1,4 @@
-FROM hub.orion.home/golang:1.19-alpine AS builder
+FROM hub.orion.home/dev-runtime AS builder
 
 COPY . /app/
 
