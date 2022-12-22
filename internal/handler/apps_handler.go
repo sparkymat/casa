@@ -26,7 +26,13 @@ func Apps(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFunc {
 			return c.String(http.StatusInternalServerError, "internal server error")
 		}
 
-		appItems := presenter.AppItemsFromModelList(catalogItems, user.HomeItems)
+		homeItems, err := db.ListHomeItems(c.Request().Context(), user.ID)
+		if err != nil {
+			//nolint:wrapcheck
+			return c.String(http.StatusInternalServerError, "internal server error")
+		}
+
+		appItems := presenter.AppItemsFromModelList(catalogItems, homeItems)
 
 		pageHTML := view.Apps(csrfToken, appItems)
 		htmlString := view.Layout(cfg.Title(), pageHTML)

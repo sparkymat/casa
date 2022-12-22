@@ -26,10 +26,11 @@ func Setup(e *echo.Echo, cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) {
 	e.Static("/fonts", "public/fonts")
 	e.Static("/uploads", path.Join(cfg.DataPath(), "uploads"))
 
-	e.GET("/", handler.Home(cfg))
+	e.GET("/", handler.Home(cfg, db))
 	e.GET("/apps", handler.Apps(cfg, db))
 	e.GET("/apps/new", handler.NewApp(cfg))
 	e.POST("/apps", handler.CreateApp(cfg, db))
 	e.POST("/apps/:id/delete", handler.DestroyApp(cfg, db))
 	e.POST("/apps/:id/home_items", handler.CreateHomeItem(cfg, db))
+	e.POST("/apps/:id/home_items/:home_item_id/delete", handler.DestroyHomeItem(cfg, db))
 }
