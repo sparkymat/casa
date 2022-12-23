@@ -12,8 +12,7 @@ func NewApp(cfg configiface.ConfigAPI) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		csrfToken := getCSRFToken(c)
 		if csrfToken == "" {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "csrf error")
+			return echo.NewHTTPError(http.StatusInternalServerError, "Form verification failed")
 		}
 
 		pageHTML := view.NewApp(csrfToken)

@@ -15,14 +15,12 @@ func DestroyHomeItem(_ configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.Handl
 
 		appID, err := strconv.ParseUint(appIDString, 10, 32)
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusUnprocessableEntity, "invalid app")
+			return echo.NewHTTPError(http.StatusUnprocessableEntity, "Invalid home item ID")
 		}
 
 		err = db.DestroyHomeItem(c.Request().Context(), uint(appID))
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "app delete failed")
+			return echo.NewHTTPError(http.StatusUnprocessableEntity, "Failed to delete home item")
 		}
 
 		//nolint:wrapcheck

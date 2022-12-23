@@ -18,8 +18,7 @@ func Middleware(db dbiface.DatabaseAPI) echo.MiddlewareFunc {
 			name := c.Request().Header.Get("Remote-Name")
 
 			if email == "" || name == "" {
-				//nolint:wrapcheck
-				return c.String(http.StatusUnauthorized, "unathorized")
+				return echo.NewHTTPError(http.StatusUnauthorized, "Proxy failed to forward authentication headers")
 			}
 
 			user, err := db.GetUser(c.Request().Context(), email)
@@ -29,7 +28,7 @@ func Middleware(db dbiface.DatabaseAPI) echo.MiddlewareFunc {
 
 			if err != nil {
 				//nolint:wrapcheck
-				return c.String(http.StatusUnauthorized, "unathorized")
+				return echo.NewHTTPError(http.StatusUnauthorized, "Failed to load user")
 			}
 
 			c.Set(CurrentUserKey, user)

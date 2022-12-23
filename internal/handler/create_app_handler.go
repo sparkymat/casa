@@ -21,14 +21,12 @@ func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFu
 		url := c.FormValue("url")
 
 		if title == "" || url == "" {
-			//nolint:wrapcheck
-			return c.String(http.StatusUnprocessableEntity, "title and url required")
+			return echo.NewHTTPError(http.StatusUnprocessableEntity, "Title and url needed for adding app")
 		}
 
 		imageFile, err := c.FormFile("image_file")
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "failed to handle file")
+			return echo.NewHTTPError(http.StatusInternalServerError, "File upload failed")
 		}
 
 		fileUID := ulid.Make().String()
@@ -36,38 +34,33 @@ func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFu
 
 		destinationFolderPath := path.Join(cfg.DataPath(), "uploads")
 		//nolint:gomnd
-		if err := os.MkdirAll(destinationFolderPath, os.FileMode(0o750)); err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "failed to handle file")
+		if err = os.MkdirAll(destinationFolderPath, os.FileMode(0o750)); err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, "File saving failed")
 		}
 
 		destinationFilePath := path.Join(destinationFolderPath, fmt.Sprintf("%s%s", fileUID, fileExt))
 
 		src, err := imageFile.Open()
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "failed to handle file")
+			return echo.NewHTTPError(http.StatusInternalServerError, "File saving failed")
 		}
 		defer src.Close()
 
 		// Destination
 		dst, err := os.Create(destinationFilePath)
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "failed to create destination file")
+			return echo.NewHTTPError(http.StatusInternalServerError, "File saving failed")
 		}
 		defer dst.Close()
 
 		// Copy
 		if _, err = io.Copy(dst, src); err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "failed to copy file")
+			return echo.NewHTTPError(http.StatusInternalServerError, "File saving failed")
 		}
 
 		_, err = db.CreateCatalogItem(c.Request().Context(), title, url, description, fmt.Sprintf("/uploads/%v%v", fileUID, fileExt))
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "failed to create entry")
+			return echo.NewHTTPError(http.StatusInternalServerError, "Failed to create catalog item")
 		}
 
 		//nolint:wrapcheck

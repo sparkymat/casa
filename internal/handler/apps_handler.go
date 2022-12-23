@@ -16,20 +16,17 @@ func Apps(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFunc {
 
 		csrfToken := getCSRFToken(c)
 		if csrfToken == "" {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "csrf error")
+			return echo.NewHTTPError(http.StatusInternalServerError, "Form verification failed")
 		}
 
 		catalogItems, err := db.ListCatalogItems(c.Request().Context())
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "internal server error")
+			return echo.NewHTTPError(http.StatusInternalServerError, "Database read failed")
 		}
 
 		homeItems, err := db.ListHomeItems(c.Request().Context(), user.ID)
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "internal server error")
+			return echo.NewHTTPError(http.StatusInternalServerError, "Database read failed")
 		}
 
 		appItems := presenter.AppItemsFromModelList(catalogItems, homeItems)

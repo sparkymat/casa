@@ -15,14 +15,12 @@ func DestroyApp(_ configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFun
 
 		appID, err := strconv.ParseUint(appIDString, 10, 32)
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusUnprocessableEntity, "invalid app")
+			return echo.NewHTTPError(http.StatusUnprocessableEntity, "Invalid app ID")
 		}
 
 		err = db.DestroyCatalogItem(c.Request().Context(), uint(appID))
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "app delete failed")
+			return echo.NewHTTPError(http.StatusUnprocessableEntity, "Failed to delete app")
 		}
 
 		//nolint:wrapcheck

@@ -15,8 +15,7 @@ func Home(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFunc {
 
 		homeItems, err := db.ListHomeItems(c.Request().Context(), user.ID)
 		if err != nil {
-			//nolint:wrapcheck
-			return c.String(http.StatusInternalServerError, "internal server error")
+			return echo.NewHTTPError(http.StatusInternalServerError, "Database read failed")
 		}
 
 		pageHTML := view.Home(homeItems)
