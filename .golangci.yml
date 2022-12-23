@@ -1,13 +1,22 @@
 linters:
   enable-all: true
   disable:
+    - deadcode
     - exhaustivestruct
     - exhaustruct
+    - golint
+    - ifshort
+    - interfacer
+    - maligned
+    - nosnakecase
+    - scopelint
+    - structcheck
+    - varcheck
     - varnamelen
 
 linters-settings:
   lll:
-    line-length: 160
+    line-length: 180
   revive:
     ignore-generated-header: true
     severity: error
@@ -69,4 +78,4 @@ linters-settings:
       - name: cognitive-complexity
         arguments: [16]
       - name: line-length-limit
-        arguments: [160]
+        arguments: [180]

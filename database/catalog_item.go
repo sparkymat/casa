@@ -7,10 +7,21 @@ import (
 	"gorm.io/gorm"
 )
 
-func (s *Service) CreateCatalogItem(_ context.Context, title string, url string, description string, imageURL string) (*model.CatalogItem, error) {
+func (s *Service) ListCategories(_ context.Context) ([]string, error) {
+	categories := []string{}
+
+	if result := s.db.Model(&model.CatalogItem{}).Distinct().Pluck("Category", &categories); result.Error != nil {
+		return nil, result.Error
+	}
+
+	return categories, nil
+}
+
+func (s *Service) CreateCatalogItem(_ context.Context, title string, url string, category string, description string, imageURL string) (*model.CatalogItem, error) {
 	item := model.CatalogItem{
 		Title:       title,
 		URL:         url,
+		Cataegory:   category,
 		Description: description,
 		ImageURL:    imageURL,
 	}

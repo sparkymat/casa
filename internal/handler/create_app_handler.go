@@ -17,11 +17,12 @@ import (
 func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		title := c.FormValue("title")
+		category := c.FormValue("category")
 		description := c.FormValue("description")
 		url := c.FormValue("url")
 
-		if title == "" || url == "" {
-			return echo.NewHTTPError(http.StatusUnprocessableEntity, "Title and url needed for adding app")
+		if title == "" || url == "" || category == "" {
+			return echo.NewHTTPError(http.StatusUnprocessableEntity, "Title, category and url needed for adding app")
 		}
 
 		imageFile, err := c.FormFile("image_file")
@@ -58,7 +59,7 @@ func CreateApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFu
 			return echo.NewHTTPError(http.StatusInternalServerError, "File saving failed")
 		}
 
-		_, err = db.CreateCatalogItem(c.Request().Context(), title, url, description, fmt.Sprintf("/uploads/%v%v", fileUID, fileExt))
+		_, err = db.CreateCatalogItem(c.Request().Context(), title, url, category, description, fmt.Sprintf("/uploads/%v%v", fileUID, fileExt))
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Failed to create catalog item")
 		}

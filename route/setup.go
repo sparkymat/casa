@@ -54,7 +54,7 @@ func Setup(e *echo.Echo, cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) {
 
 	app.GET("/", handler.Home(cfg, db))
 	app.GET("/apps", handler.Apps(cfg, db))
-	app.GET("/apps/new", handler.NewApp(cfg))
+	app.GET("/apps/new", handler.NewApp(cfg, db))
 	app.POST("/apps", handler.CreateApp(cfg, db))
 	app.POST("/apps/:id/delete", handler.DestroyApp(cfg, db))
 	app.POST("/apps/:id/home_items", handler.CreateHomeItem(cfg, db))

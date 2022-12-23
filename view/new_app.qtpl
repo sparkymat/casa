@@ -1,10 +1,18 @@
-{% func NewApp(csrfToken string) %}
+{% func NewApp(csrfToken string, categories []string) %}
   <div class="uk-flex uk-flex-column uk-flex-middle uk-margin-small-top">
     <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
       <form action="/apps" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="csrf" value="{%s csrfToken %}">
         <div class="uk-margin">
           <input type="text" class="uk-card-title uk-input" placeholder="Name of the app" name="title" autofocus>
+        </div>
+        <div class="uk-margin">
+          <input type="text" class="uk-input" placeholder="Category" list="categories" name="category" autofocus>
+          <datalist id="categories">
+            {% for _, category := range categories %}
+              <option>{%s category %}</option>
+            {% endfor %}
+          </datalist>
         </div>
         <div class="uk-margin">
           <input type="text" class="uk-input" placeholder="Link to the app" name="url">
