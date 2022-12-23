@@ -17,6 +17,7 @@ import (
 func customErrorHandler(err error, c echo.Context) {
 	code := http.StatusInternalServerError
 	message := err.Error()
+
 	if httpErr, ok := err.(*echo.HTTPError); ok {
 		code = httpErr.Code
 		message = fmt.Sprintf("%v", httpErr.Message)

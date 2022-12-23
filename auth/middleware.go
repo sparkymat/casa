@@ -27,7 +27,6 @@ func Middleware(db dbiface.DatabaseAPI) echo.MiddlewareFunc {
 			}
 
 			if err != nil {
-				//nolint:wrapcheck
 				return echo.NewHTTPError(http.StatusUnauthorized, "Failed to load user")
 			}
 
