@@ -11,7 +11,7 @@ func (s *Service) GetUser(_ context.Context, email string) (*model.User, error) 
 		Email: email,
 	}
 
-	if result := s.db.Preload("HomeItems").First(&user); result.Error != nil {
+	if result := s.db.First(&user); result.Error != nil {
 		return nil, result.Error
 	}
 
