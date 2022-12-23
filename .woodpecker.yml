@@ -8,7 +8,7 @@ pipeline:
   lint:
     image: hub.orion.home/dev-runtime:latest
     commands:
-      - golangci-lint run
+      - golangci-lint run --timeout=5m
 
   test:
     image: hub.orion.home/dev-runtime:latest
