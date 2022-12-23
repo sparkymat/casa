@@ -7,6 +7,7 @@ require (
 	github.com/glebarez/sqlite v1.6.0
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.9.1
+	github.com/oklog/ulid/v2 v2.1.0
 	github.com/valyala/quicktemplate v1.7.0
 	gorm.io/gorm v1.24.2
 )
@@ -20,7 +21,6 @@ require (
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
-	github.com/oklog/ulid/v2 v2.1.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.1 // indirect
