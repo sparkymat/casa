@@ -3,9 +3,9 @@
 {% func Home(items []model.HomeItem) %}
   <div uk-grid class="uk-padding-small">
     {% for _, item := range items %}
-      <div class="uk-card uk-card-body uk-width-1-3 uk-width-1-6@m uk-width-1-8@l">
+      <div class="uk-card uk-card-body uk-width-1-2 uk-width-1-6@m uk-width-1-8@l">
         <a class="uk-link-reset" href="{%s= item.CatalogItem.URL %}" target="_blank">
-          <div class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="{%s item.CatalogItem.ImageURL %}" uk-img>
+          <div class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-contain uk-light" data-src="{%s item.CatalogItem.ImageURL %}" uk-img>
           </div>
           <h3 class="uk-margin-small uk-text-center">{%s item.CatalogItem.Title %}</h3>
         </a>
