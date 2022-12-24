@@ -24,65 +24,63 @@ var (
 func StreamHome(qw422016 *qt422016.Writer, items []model.HomeItem) {
 //line view/home.qtpl:3
 	qw422016.N().S(`
-  <div class="uk-flex uk-flex-column">
-    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-flex uk-flex-row">
-      `)
-//line view/home.qtpl:6
+  <div uk-grid class="uk-padding-small">
+    `)
+//line view/home.qtpl:5
 	for _, item := range items {
-//line view/home.qtpl:6
+//line view/home.qtpl:5
 		qw422016.N().S(`
-        <div class="uk-padding uk-flex uk-flex-column">
-          <a class="uk-link-reset" href="`)
-//line view/home.qtpl:8
+      <div class="uk-card uk-card-body uk-width-1-3 uk-width-1-6@m uk-width-1-8@l">
+        <a class="uk-link-reset" href="`)
+//line view/home.qtpl:7
 		qw422016.N().S(item.CatalogItem.URL)
-//line view/home.qtpl:8
+//line view/home.qtpl:7
 		qw422016.N().S(`" target="_blank">
-            <div class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="`)
-//line view/home.qtpl:9
+          <div class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="`)
+//line view/home.qtpl:8
 		qw422016.E().S(item.CatalogItem.ImageURL)
-//line view/home.qtpl:9
+//line view/home.qtpl:8
 		qw422016.N().S(`" uk-img>
-            </div>
-            <h3 class="uk-margin-small uk-text-center">`)
-//line view/home.qtpl:11
+          </div>
+          <h3 class="uk-margin-small uk-text-center">`)
+//line view/home.qtpl:10
 		qw422016.E().S(item.CatalogItem.Title)
-//line view/home.qtpl:11
+//line view/home.qtpl:10
 		qw422016.N().S(`</h3>
-          </a>
-        </div>
-      `)
-//line view/home.qtpl:14
+        </a>
+      </div>
+    `)
+//line view/home.qtpl:13
 	}
-//line view/home.qtpl:14
+//line view/home.qtpl:13
 	qw422016.N().S(`
-    </div>
   </div>
 `)
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 }
 
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 func WriteHome(qq422016 qtio422016.Writer, items []model.HomeItem) {
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 	StreamHome(qw422016, items)
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 	qt422016.ReleaseWriter(qw422016)
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 }
 
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 func Home(items []model.HomeItem) string {
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 	qb422016 := qt422016.AcquireByteBuffer()
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 	WriteHome(qb422016, items)
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 	qs422016 := string(qb422016.B)
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 	qt422016.ReleaseByteBuffer(qb422016)
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 	return qs422016
-//line view/home.qtpl:17
+//line view/home.qtpl:15
 }
