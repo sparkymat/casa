@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"errors"
 
 	"git.orion.home/oxhead/casa/model"
 	"gorm.io/gorm"
@@ -10,7 +11,9 @@ import (
 func (s *Service) ListCategories(_ context.Context) ([]string, error) {
 	categories := []string{}
 
-	if result := s.db.Model(&model.CatalogItem{}).Distinct().Pluck("Category", &categories); result.Error != nil {
+	result := s.db.Model(&model.CatalogItem{}).Distinct().Pluck("Category", &categories)
+
+	if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		return nil, result.Error
 	}
 
