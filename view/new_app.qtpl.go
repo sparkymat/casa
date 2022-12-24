@@ -30,10 +30,10 @@ func StreamNewApp(qw422016 *qt422016.Writer, csrfToken string, categories []stri
 //line view/new_app.qtpl:5
 	qw422016.N().S(`">
         <div class="uk-margin">
-          <input type="text" class="uk-card-title uk-input" placeholder="Name of the app" name="title" autofocus>
+          <input type="text" class="uk-card-title uk-input" placeholder="Name of the app" name="title" autofocus required>
         </div>
         <div class="uk-margin">
-          <input type="text" class="uk-input" placeholder="Category" list="categories" name="category" autofocus>
+          <input type="text" class="uk-input" placeholder="Category" list="categories" name="category" required>
           <datalist id="categories">
             `)
 //line view/new_app.qtpl:12
@@ -53,7 +53,7 @@ func StreamNewApp(qw422016 *qt422016.Writer, csrfToken string, categories []stri
           </datalist>
         </div>
         <div class="uk-margin">
-          <input type="text" class="uk-input" placeholder="Link to the app" name="url">
+          <input type="text" class="uk-input" placeholder="Link to the app" name="url" required>
         </div>
         <div class="uk-margin">
           <textarea name="description" class="uk-input" placeholder="Describe what the app does"></textarea>

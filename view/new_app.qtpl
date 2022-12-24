@@ -4,10 +4,10 @@
       <form action="/apps" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="csrf" value="{%s csrfToken %}">
         <div class="uk-margin">
-          <input type="text" class="uk-card-title uk-input" placeholder="Name of the app" name="title" autofocus>
+          <input type="text" class="uk-card-title uk-input" placeholder="Name of the app" name="title" autofocus required>
         </div>
         <div class="uk-margin">
-          <input type="text" class="uk-input" placeholder="Category" list="categories" name="category" autofocus>
+          <input type="text" class="uk-input" placeholder="Category" list="categories" name="category" required>
           <datalist id="categories">
             {% for _, category := range categories %}
               <option>{%s category %}</option>
@@ -15,7 +15,7 @@
           </datalist>
         </div>
         <div class="uk-margin">
-          <input type="text" class="uk-input" placeholder="Link to the app" name="url">
+          <input type="text" class="uk-input" placeholder="Link to the app" name="url" required>
         </div>
         <div class="uk-margin">
           <textarea name="description" class="uk-input" placeholder="Describe what the app does"></textarea>

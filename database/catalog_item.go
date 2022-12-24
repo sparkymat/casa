@@ -11,7 +11,7 @@ import (
 func (s *Service) ListCategories(_ context.Context) ([]string, error) {
 	categories := []string{}
 
-	result := s.db.Model(&model.CatalogItem{}).Distinct().Pluck("Category", &categories)
+	result := s.db.Model(&model.CatalogItem{}).Distinct().Pluck("category", &categories)
 
 	if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		return nil, result.Error
@@ -24,7 +24,7 @@ func (s *Service) CreateCatalogItem(_ context.Context, title string, url string,
 	item := model.CatalogItem{
 		Title:       title,
 		URL:         url,
-		Cataegory:   category,
+		Category:    category,
 		Description: description,
 		ImageURL:    imageURL,
 	}

@@ -18,7 +18,7 @@ func NewApp(cfg configiface.ConfigAPI, db dbiface.DatabaseAPI) echo.HandlerFunc 
 
 		categories, err := db.ListCategories(c.Request().Context())
 		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, "Failed to load categories")
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
 
 		pageHTML := view.NewApp(csrfToken, categories)
