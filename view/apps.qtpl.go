@@ -31,124 +31,118 @@ func StreamApps(qw422016 *qt422016.Writer, csrfToken string, items []presenter.A
     <div class="uk-flex uk-flex-row-reverse uk-padding-small">
       <a class="uk-button uk-button-primary" href="/apps/new">New app</a>
     </div>
-    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-flex uk-flex-row">
+    <div uk-grid class="uk-padding-small">
       `)
 //line view/apps.qtpl:10
 	for _, item := range items {
 //line view/apps.qtpl:10
 		qw422016.N().S(`
-        <div class="uk-padding uk-flex uk-flex-column">
-          <a class="uk-link-reset" href="`)
+        <div class="uk-card uk-card-default uk-card-body uk-width-1-2 uk-width-1-6@m">
+          <div class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-contain uk-light" data-src="`)
 //line view/apps.qtpl:12
-		qw422016.N().S(item.URL)
-//line view/apps.qtpl:12
-		qw422016.N().S(`" target="_blank">
-            <div class="uk-card uk-card-default">
-              <div class="uk-card-media-top">
-                  <img src="`)
-//line view/apps.qtpl:15
 		qw422016.E().S(item.ImageURL)
-//line view/apps.qtpl:15
-		qw422016.N().S(`"  height="180" alt="">
-              </div>
-              <div class="uk-card-body uk-padding-small">
-                <h3 class="uk-card-title uk-text-center">`)
-//line view/apps.qtpl:18
+//line view/apps.qtpl:12
+		qw422016.N().S(`" uk-img>
+          </div>
+          <h3 class="uk-card-title uk-text-center">`)
+//line view/apps.qtpl:14
 		qw422016.E().S(item.Title)
-//line view/apps.qtpl:18
+//line view/apps.qtpl:14
 		qw422016.N().S(`</h3>
-              </div>
-            </div>
-          </a>
+          <a href="`)
+//line view/apps.qtpl:15
+		qw422016.N().S(item.URL)
+//line view/apps.qtpl:15
+		qw422016.N().S(`" class="uk-button uk-button-primary uk-width-1-1" target="_blank">Open</a>
           `)
-//line view/apps.qtpl:22
+//line view/apps.qtpl:16
 		if item.HomeItemID != nil {
-//line view/apps.qtpl:22
+//line view/apps.qtpl:16
 			qw422016.N().S(`
             <form action="/apps/`)
-//line view/apps.qtpl:23
+//line view/apps.qtpl:17
 			qw422016.N().S(fmt.Sprintf("%d", item.ID))
-//line view/apps.qtpl:23
+//line view/apps.qtpl:17
 			qw422016.N().S(`/home_items/`)
-//line view/apps.qtpl:23
+//line view/apps.qtpl:17
 			qw422016.N().S(fmt.Sprintf("%d", *item.HomeItemID))
-//line view/apps.qtpl:23
+//line view/apps.qtpl:17
 			qw422016.N().S(`/delete" method="POST" onsubmit="return confirm('Are you sure you want to remove this from your home page?')" class="uk-flex uk-flex-row uk-margin-small-top"> 
               <input type="hidden" name="csrf" value="`)
-//line view/apps.qtpl:24
+//line view/apps.qtpl:18
 			qw422016.E().S(csrfToken)
-//line view/apps.qtpl:24
+//line view/apps.qtpl:18
 			qw422016.N().S(`">
               <input type="submit" class="uk-button uk-button-default uk-width-1-1" value="Remove from home">
             </form>
           `)
-//line view/apps.qtpl:27
+//line view/apps.qtpl:21
 		} else {
-//line view/apps.qtpl:27
+//line view/apps.qtpl:21
 			qw422016.N().S(`
             <form action="/apps/`)
-//line view/apps.qtpl:28
+//line view/apps.qtpl:22
 			qw422016.N().S(fmt.Sprintf("%d", item.ID))
-//line view/apps.qtpl:28
+//line view/apps.qtpl:22
 			qw422016.N().S(`/home_items" method="POST" class="uk-flex uk-flex-row uk-margin-small-top"> 
               <input type="hidden" name="csrf" value="`)
-//line view/apps.qtpl:29
+//line view/apps.qtpl:23
 			qw422016.E().S(csrfToken)
-//line view/apps.qtpl:29
+//line view/apps.qtpl:23
 			qw422016.N().S(`">
               <input type="submit" class="uk-button uk-button-primary uk-width-1-1" value="Add to  home">
             </form>
           `)
-//line view/apps.qtpl:32
+//line view/apps.qtpl:26
 		}
-//line view/apps.qtpl:32
+//line view/apps.qtpl:26
 		qw422016.N().S(`
           <form action="/apps/`)
-//line view/apps.qtpl:33
+//line view/apps.qtpl:27
 		qw422016.N().S(fmt.Sprintf("%d", item.ID))
-//line view/apps.qtpl:33
+//line view/apps.qtpl:27
 		qw422016.N().S(`/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this?')" class="uk-flex uk-flex-row uk-margin-small-top"> 
             <input type="hidden" name="csrf" value="`)
-//line view/apps.qtpl:34
+//line view/apps.qtpl:28
 		qw422016.E().S(csrfToken)
-//line view/apps.qtpl:34
+//line view/apps.qtpl:28
 		qw422016.N().S(`">
             <input type="submit" class="uk-button uk-button-danger uk-width-1-1" value="Delete">
           </form>
         </div>
       `)
-//line view/apps.qtpl:38
+//line view/apps.qtpl:32
 	}
-//line view/apps.qtpl:38
+//line view/apps.qtpl:32
 	qw422016.N().S(`
     </div>
   </div>
 `)
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 }
 
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 func WriteApps(qq422016 qtio422016.Writer, csrfToken string, items []presenter.AppItem) {
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 	StreamApps(qw422016, csrfToken, items)
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 	qt422016.ReleaseWriter(qw422016)
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 }
 
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 func Apps(csrfToken string, items []presenter.AppItem) string {
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 	qb422016 := qt422016.AcquireByteBuffer()
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 	WriteApps(qb422016, csrfToken, items)
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 	qs422016 := string(qb422016.B)
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 	qt422016.ReleaseByteBuffer(qb422016)
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 	return qs422016
-//line view/apps.qtpl:41
+//line view/apps.qtpl:35
 }

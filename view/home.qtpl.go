@@ -30,7 +30,7 @@ func StreamHome(qw422016 *qt422016.Writer, items []model.HomeItem) {
 	for _, item := range items {
 //line view/home.qtpl:5
 		qw422016.N().S(`
-      <div class="uk-card uk-card-body uk-width-1-2 uk-width-1-6@m uk-width-1-8@l">
+      <div class="uk-card uk-card-body uk-width-1-3 uk-width-1-6@m">
         <a class="uk-link-reset" href="`)
 //line view/home.qtpl:7
 		qw422016.N().S(item.CatalogItem.URL)
