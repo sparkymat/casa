@@ -35,7 +35,7 @@ func (s *Service) DestroyHomeItem(_ context.Context, id uint) error {
 func (s *Service) ListHomeItems(_ context.Context, userID uint) ([]model.HomeItem, error) {
 	homeItems := []model.HomeItem{}
 
-	if result := s.db.Joins("CatalogItem").Order("CatalogItem.title desc").Find(&homeItems, "home_items.user_id = ?", userID); result.Error != nil {
+	if result := s.db.Joins("CatalogItem").Order("CatalogItem.title asc").Find(&homeItems, "home_items.user_id = ?", userID); result.Error != nil {
 		return nil, result.Error
 	}
 

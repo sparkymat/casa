@@ -51,7 +51,7 @@ func (s *Service) DestroyCatalogItem(_ context.Context, id uint) error {
 func (s *Service) ListCatalogItems(_ context.Context) ([]model.CatalogItem, error) {
 	catalogItems := []model.CatalogItem{}
 
-	if result := s.db.Order("title desc").Find(&catalogItems); result.Error != nil {
+	if result := s.db.Order("title asc").Find(&catalogItems); result.Error != nil {
 		return nil, result.Error
 	}
 
